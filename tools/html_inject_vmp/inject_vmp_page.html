@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>迷你油猴配置</title>
+  <script src="../model_codes/jquery.min.js"></script>
+  <script src="../model_codes/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="../model_codes/jquery-ui.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 20px;
+      background-color: #f5f5f5;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #333;
+      margin-top: 0;
+    }
+    .config-table-container {
+      overflow-x: auto;
+      margin-bottom: 20px;
+    }
+    .config-table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .config-table th {
+      background-color: #4a6ea9;
+      color: white;
+      padding: 8px 12px;
+      text-align: left;
+      font-weight: 500;
+    }
+    .config-table td {
+      padding: 6px 12px;
+      border-bottom: 1px solid #e0e0e0;
+      background-color: white;
+    }
+    .config-table tr:last-child td {
+      border-bottom: none;
+    }
+    .config-table tr:hover {
+      background-color: #f8f9fa;
+    }
+    .config-table tr.selected {
+      background-color: #e3f2fd;
+    }
+    .config-table tr.selected td {
+      background-color: #e3f2fd;
+    }
+    .editable-field {
+      width: 100%;
+      padding: 6px 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+      transition: border-color 0.3s;
+      box-sizing: border-box;
+      background-color: white;
+    }
+    .editable-field:focus {
+      border-color: #4a6ea9;
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(74,110,169,0.2);
+    }
+    .actions {
+      white-space: nowrap;
+    }
+    .action-btn {
+      padding: 4px 8px;
+      font-size: 12px;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-right: 8px;
+    }
+    .delete-btn {
+      background-color: #f44336;
+      color: white;
+      border: none;
+    }
+    .delete-btn:hover {
+      background-color: #d32f2f;
+    }
+    .build-btn {
+      background-color: #f44336;
+      color: white;
+      border: none;
+    }
+    .build-btn:hover {
+      background-color: #d32f2f;
+    }
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 40px;
+      height: 20px;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 20px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 2px;
+      bottom: 2px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: #4a6ea9;
+    }
+    input:checked + .slider:before {
+      transform: translateX(20px);
+    }
+    .add-row-btn {
+      background-color: #4a6ea9;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      font-size: 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .add-row-btn:hover {
+      background-color: #3a5a8f;
+    }
+    .info-panel {
+      margin-top: 20px;
+      padding: 12px;
+      background-color: #f8f9fa;
+      border-radius: 6px;
+      border: 1px solid #e0e0e0;
+    }
+    .info-panel h3 {
+      margin-top: 0;
+      color: #333;
+    }
+    pre {
+      background-color: #f5f5f5;
+      padding: 10px;
+      border-radius: 4px;
+      overflow-x: auto;
+      font-family: Consolas, Monaco, 'Andale Mono', monospace;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #333;
+      border: 1px solid #e0e0e0;
+      margin: 0;
+    }
+    .column-field1 {
+      width: 20%;
+    }
+    .column-field2 {
+      width: 35%;
+    }
+    .column-actions {
+      width: 45%;
+    }
+    .textarea-container {
+      margin-top: 20px;
+    }
+    .config-textarea {
+      width: 100%;
+      min-height: 500px;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+      box-sizing: border-box;
+      resize: vertical;
+    }
+    .config-textarea:focus {
+      border-color: #4a6ea9;
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(74,110,169,0.2);
+    }
+  </style>
+</head>
+<body>
+  <!-- 保持原有HTML结构不变 -->
+  <div class="container">
+    <h1>迷你油猴（不会触发调试模式的注入方案，利用VMP绕过eval/Function限制）</h1>
+    <div id="toggle_vmp">
+      <label class="switch"><input type="checkbox" class="status-toggle"><span class="slider"></span></label>
+    </div>
+    <hr>
+    <div><span>【1】 “字节码”字段中的内容要经过编译才可以使用，更改代码的时候也需要重新编译字节码</span></div>
+    <div><span>【2】 由于 VMP 性能限制，编译的代码不能过长，同时只能使用 es5 语法进行编译</span></div>
+    <hr>
+    <button id="addRowBtn" class="add-row-btn">添加新的配置</button>
+    <hr>
+    <div class="config-table-container">
+      <table id="configTable" class="config-table">
+        <thead>
+          <tr>
+            <th class="column-field1">名字</th>
+            <th class="column-field2">字节码</th>
+            <th class="column-actions">操作</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="textarea-container">
+      <label for="configTextarea">当前选中行的额外配置:</label>
+      <textarea id="configTextarea" class="config-textarea" placeholder="未选中任何行" spellcheck="false" disabled></textarea>
+    </div>
+    <!-- <div class="info-panel">
+      <h3>当前选中行的配置:</h3>
+      <pre id="selectedRowData">未选中任何行</pre>
+    </div> -->
+  </div>
+
+  <script src="inject_vmp_page.js"></script>
+</body>
+</html>

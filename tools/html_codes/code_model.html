@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>代码模板</title>
+<meta charset="utf-8">
+</head>
+<body>
+
+<h2>代码模板</h2>
+<hr>
+<button id="get_code_babel_ast">babel模板代码</button>
+<button id="get_code_cryptojs">cryptojs模板代码</button>
+<button id="get_code_uglifyjs">uglifyjs模板代码</button>
+<button id="get_code_request">request模板代码</button>
+<button id="get_code_jsencrypt">jsencrypt(RSA)模板代码</button>
+<button id="get_code_cheerio">cheerio模板代码</button>
+<button id="get_code_terser">terser模板代码</button>
+<button id="get_code_parse5">parse5模板代码</button>
+<button id="get_jquery_min_js">jquery.min.js模板代码</button>
+<button id="get_wat2wasm_js">wat转wasm脚本代码</button>
+<button id="get_express_pack">rpc服务端模板代码</button>
+<button id="get_rpc_inject_js">rpc注入模板代码</button>
+<button id="get_wasm2js_demo_js">wasm转换成js代码</button>
+<hr>
+<div>脚本体积:<span id="bytelen" style="color: red">0</span></div>
+<hr>
+<img id=show_img style="display:none">
+<hr id=show_hr style="display:none">
+<textarea spellcheck="false" id='code_model' style="width: 100%; height: 80vh;" placeholder="附加功能，拖拽文件到该窗口自动输出base64内容"></textarea>
+
+<script src="./code_model.js"></script>
+
+</body>
+</html>

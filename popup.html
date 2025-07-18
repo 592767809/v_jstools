@@ -5,8 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-
-  <style type="text/css">
+  <style>
     .switch {
       position: relative;
       display: inline-block;
@@ -23,7 +22,6 @@
       right: 0;
       bottom: 0;
       background-color: #ccc;
-      -webkit-transition: .05s;
       transition: .05s;
       border-radius: 34px;
     }
@@ -35,124 +33,191 @@
       left: 4px;
       bottom: 4px;
       background-color: white;
-      -webkit-transition: .05s;
       transition: .05s;
       border-radius: 50%;
     }
-    input:checked + .slider {
-      background-color: #2196F3;
-    }
-    input:focus + .slider {
-      box-shadow: 0 0 1px #2196F3;
-    }
-    input:checked + .slider:before {
-      -webkit-transform: translateX(26px);
-      -ms-transform: translateX(26px);
-      transform: translateX(26px);
-    }
-  </style>
-  <style>
-    .button {
-      display: inline-block;
+    input:checked + .slider { background-color: #2196F3; }
+    input:focus + .slider { box-shadow: 0 0 1px #2196F3; }
+    input:checked + .slider:before { transform: translateX(26px); }
+    .btn { background-color: #f4511e; }
+    .btn-main{ background-color: #999; }
+    .btn, .btn-main {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       border-radius: 4px;
-      background-color: #f4511e;
-      border: none;
       color: #FFFFFF;
-      text-align: center;
-      font-size: 15px;
-      padding: 10px;
-      width: 160px;
-      transition: all 0.5s;
+      font-size: 14px;
+      padding: 10px 15px;
+      border: none;
       cursor: pointer;
-      margin: 5px;
+      transition: all 0.3s ease;
+      height: 26px;
+      box-sizing: border-box;
+      line-height: 20px;
+      margin: 1px 0;
     }
-    .button span {
-      cursor: pointer;
-      display: inline-block;
+    .btn:hover, .btn-main:hover { background-color: #d84315; }
+    .btn:active, .btn-main:active { transform: translateY(1px); }
+    .btn-main {
+      width: 260px;
       position: relative;
-      transition: 0.5s;
     }
-    .button span:after {
-      content: '»';
+    .btn {
+      flex: 1;
+      min-width: 0;
+    }
+    .btn-main span {
+      position: relative;
+      padding-right: 0;
+      transition: padding-right 0.3s;
+    }
+    .btn-main:hover span {
+      padding-right: 15px;
+    }
+    .btn-main span::after {
+      content: '→';
       position: absolute;
+      right: -10px;
       opacity: 0;
-      top: 0;
-      right: -20px;
-      transition: 0.5s;
+      transition: opacity 0.3s, right 0.3s;
     }
-    .button:hover span {
-      padding-right: 25px;
-    }
-    .button:hover span:after {
+    .btn-main:hover span::after {
       opacity: 1;
       right: 0;
     }
-
-    .button2 {
-      display: inline-block;
-      padding: 10px;
-      font-size: 15px;
+    .btn-pair {
+      display: flex;
+      gap: 5px;
+      width: 260px;
+      margin: 1px 0;
+    }
+    .switch-label {
+      float: right;
+      padding: 8px 10px;
+      font-size: 13px;
+      color: #555;
+    }
+    body {
+      width: 260px;
+      padding: 9px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      border: 1px solid #ddd;
+    }
+    .settings-item {
+      height: 26px;
+      margin-bottom: 0px;
+      display: flex;
+      align-items: center;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 0px;
+      margin-bottom: 3px;
+    }
+    .debug-placeholder {
+      visibility: hidden;
+    }
+    .label-container {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      width: 258px;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      overflow: hidden;
+      margin: 3px 0px;
+    }
+    .label-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 20px;
+      padding: 0px 16px;
+      background-color: #f5f5f5;
       cursor: pointer;
-      text-align: center;   
-      text-decoration: none;
-      outline: none;
-      width: 160px;
-      transition: all 0.5s;
-      margin: 5px;
-      color: #fff;
-      background-color: #f4511e;
-      border: none;
-      border-radius: 4px;
-      box-shadow: 0 3px #999;
+      user-select: none;
+      transition: background-color 0.05s;
     }
-
-    .button2:hover {background-color: #b62f04}
-
-    .button2:active {
-      background-color: #3e8e41;
-      box-shadow: 0 5px #666;
-      transform: translateY(4px);
+    .label-header:hover {
+      background-color: #ebebeb;
     }
-    </style>
-
+    .label-title {
+      font-weight: 500;
+      font-size: 13px;
+      color: #333;
+    }
+    .label-arrow {
+      transition: transform 0.05s;
+      color: #666;
+    }
+    .label-list {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+    .label-list.expanded {
+      max-height: 500px;
+    }
+    .label-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0px 16px;
+      border-top: 1px solid #f0f0f0;
+      transition: background-color 0.05s;
+      height: 20px;
+    }
+    .label-item:hover {
+      background-color: #f9f9f9;
+    }
+    .label-name {
+      font-size: 13px;
+      color: #444;
+    }
+    .label-switch {
+      position: relative;
+      display: inline-block;
+      width: 28px;
+      height: 16px;
+    }
+    .label-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .label-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .05s;
+      border-radius: 16px;
+    }
+    .label-slider:before {
+      position: absolute;
+      content: "";
+      height: 12px;
+      width: 12px;
+      left: 2px;
+      bottom: 2px;
+      background-color: white;
+      transition: .05s;
+      border-radius: 50%;
+    }
+    input:checked + .label-slider {
+      background-color: #4285f4;
+    }
+    input:checked + .label-slider:before {
+      transform: translateX(12px);
+    }
+  </style>
 </head>
-<body style="width: 180px;">
-  <label class="switch">
-    <input type="checkbox" data-key="config-hook-global"><div class="slider"></div>
-  </label>
-  <div style="float: right; padding: 10px">是否挂钩总开关</div>
-  <label class="switch">
-    <input type="checkbox" data-key="config-hook-log-toggle"><div class="slider"></div>
-  </label>
-  <div style="float: right; padding: 10px">开关输出日志</div>
-  <label class="switch">
-    <input type="checkbox" data-key="config-myinject_toggle"><div class="slider"></div>
-  </label>
-  <div style="float: right; padding: 10px">是否注入代码</div>
-  <label class="switch">
-    <input type="checkbox" data-key="config-replacer_toggle"><div class="slider"></div>
-  </label>
-  <div style="float: right; padding: 10px">是否替换返回值</div>
-  <label class="switch">
-    <input type="checkbox" data-key="config-pac_proxy"><div class="slider"></div>
-  </label>
-  <div style="float: right; padding: 10px">是否开启pac代理</div>
-  <div>
-    <button id="showoptions" class="button" style="vertical-align:middle"><span>打开配置页面</span></button>
-    <button id="ast_page" class="button" style="vertical-align:middle"><span>ast工具页面</span></button>
-    <button id="diff_page" class="button" style="vertical-align:middle"><span>文本对比页面</span></button>
-    <button id="addlistener" class="button2" style="vertical-align:middle"><span>生成临时环境</span></button>
-    <button id="create_high_env" class="button2" style="vertical-align:middle"><span>生成高级环境</span></button>
-    <hr>
-    <button id="update_page" class="button2" style="vertical-align:middle">
-      <span>ver: 1.2</span><br>
-      <span>打开工具更新地址</span>
-    </button>
-  </div>
-  <script src="./tools/_config_hook_list.js"></script>
-  <script src="./tools/common.js"></script>
-  <script src="./tools/sub_logger.js"></script>
-  <script src="./tools/mod_code_getter.js"></script>
+<body>
+  <div id="config_box"></div>
+  <script src="tools/common/v_getsetfunc_list.js"></script>
+  <script src="tools/common/proxy.js"></script>
+  <script src="tools/common/sub_logger.js"></script>
   <script src="popup.js"></script>
 </body>
 </html>

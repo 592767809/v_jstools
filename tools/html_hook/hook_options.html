@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>配置页面</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <style>
+  .act{
+      background-color: #cbaeae;
+  }
+  </style>
+</head>
+<body>
+  <div>
+    <button id="normal_config">标准hook配置</button><button id="clear_config">取消所有hook配置</button><br/>
+    <label ><input type="checkbox" data-key="config-hook-global">是否挂钩总开关</label> 
+    <br/>
+    <label ><input type="checkbox" data-key="config-hook-log-toggle">是否输出挂钩日志</label> 
+    <br/>
+    <div style="border: 2px solid red; margin: 1px; width: 300px">
+      <div style="margin: 1px">
+        <label >设置每个接口的最大打印数，防止无限打印输出情况。</label> 
+        <br/>
+        <label >（请配置数字，不配置默认为30）</label> 
+      </div>
+      <div style="margin: 1px">
+        <input style="width: 290px" type="text" data-key="config-hook-log-limit-num">
+      </div>
+    </div>
+    <label ><input type="checkbox" data-key="config-hook-log-at">是否在调试输出时，输出函数触发的地址</label> 
+    <br/>
+    <label ><input type="checkbox" data-key="config-hook-cookie">是否对 cookie 进行挂钩调试输出</label> 
+    <br/>
+    <label style="margin-left: 20px"><input type="checkbox" data-key="config-hook-cookie-add-debugger">hook-cookie-add-debugger</label> 
+    <input style="width: 150px; height: 12px; margin-top: 3px" type="text" data-key="config-hook-cookie-match">
+    <label style="margin-left: 10px;">开启cookie断点（对匹配字符串的cookie下断点，默认空值则为全部下断）</label>
+    <br/>
+    <label style="margin-left: 20px"><input type="checkbox" data-key="config-hook-cookie-get">hook-cookie-get</label> 
+    <br/>
+    <label style="margin-left: 20px"><input type="checkbox" data-key="config-hook-cookie-set">hook-cookie-set</label> 
+    <br/>
+    <label ><input type="checkbox" data-key="config-hook-encrypt-normal">是否启用下面几个加解密函数挂钩输出功能</label> 
+    <br/>
+    <label style="margin-left: 20px"><input type="checkbox" data-key="config-hook-JSON.parse">hook-JSON.parse</label> 
+    <br/>
+    <label style="margin-left: 20px"><input type="checkbox" data-key="config-hook-JSON.stringify">hook-JSON.stringify</label> 
+    <br/>
+    <label style="margin-left: 20px"><input type="checkbox" data-key="config-hook-decodeURI">hook-decodeURI</label> 
+    <br/>
+    <label style="margin-left: 20px"><input type="checkbox" data-key="config-hook-decodeURIComponent">hook-decodeURIComponent</label> 
+    <br/>
+    <label style="margin-left: 20px"><input type="checkbox" data-key="config-hook-encodeURI">hook-encodeURI</label> 
+    <br/>
+    <label style="margin-left: 20px"><input type="checkbox" data-key="config-hook-encodeURIComponent">hook-encodeURIComponent</label> 
+    <br/>
+    <label style="margin-left: 20px"><input type="checkbox" data-key="config-hook-escape">hook-escape</label> 
+    <br/>
+    <label style="margin-left: 20px"><input type="checkbox" data-key="config-hook-unescape">hook-unescape</label> 
+    <br/>
+    <label style="margin-left: 20px"><input type="checkbox" data-key="config-hook-atob">hook-atob</label> 
+    <br/>
+    <label style="margin-left: 20px"><input type="checkbox" data-key="config-hook-btoa">hook-btoa</label> 
+    <br/>
+    <label style="margin-left: 20px"><input type="checkbox" data-key="config-hook-setTimeout">hook-setTimeout</label> 
+    <br/>
+    <label style="margin-left: 20px"><input type="checkbox" data-key="config-hook-setInterval">hook-setInterval</label> 
+    <br/>
+    <label ><input type="checkbox" data-key="config-hook-domobj">是否启用挂钩 DOM 对象的原型的功能调试输出</label>
+    <br/>
+    <label style="margin-left: 20px"><input type="checkbox" data-key="config-hook-domobj-get">hook-domobj-显示get输出</label> 
+    <br/>
+    <label style="margin-left: 20px"><input type="checkbox" data-key="config-hook-domobj-set">hook-domobj-显示set输出</label> 
+    <br/>
+    <label style="margin-left: 20px"><input type="checkbox" data-key="config-hook-domobj-func">hook-domobj-显示func输出</label> 
+    <br/>
+  </div>
+  <HR>
+  <div id="getsets_all" style="float: left; width: auto"></div>
+  <div id="funcs_all" style="float: left; width: 400px"></div>
+
+  <script src="../../tools/common/v_getsetfunc_list.js"></script>
+  <script src="../../tools/common/sub_logger.js"></script>
+  <script src="hook_options.js"></script>
+</body>
+</html>

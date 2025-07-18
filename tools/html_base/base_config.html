@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>功能配置</title>
+  <script src="../model_codes/jquery.min.js"></script>
+  <style type="text/css">
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f7fa;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+    .config-container {
+      width: 500px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      padding: 20px;
+    }
+    .config-item {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      margin-bottom: 10px;
+      border: 1px solid #e1e5eb;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      background: white;
+    }
+    .config-item:hover {
+      border-color: #4a6ea9;
+      box-shadow: 0 2px 8px rgba(74, 110, 169, 0.1);
+    }
+    .config-description {
+      flex: 1;
+      margin-right: 15px;
+      color: #333;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .config-title {
+      font-weight: 600;
+      color: #2c3e50;
+      margin-bottom: 3px;
+    }
+    .config-detail {
+      color: #7f8c8d;
+      font-size: 13px;
+    }
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 40px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #e1e5eb;
+      transition: .4s;
+      border-radius: 20px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 2px;
+      bottom: 2px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: #4a6ea9;
+    }
+    input:checked + .slider:before {
+      transform: translateX(20px);
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #2c3e50;
+      font-size: 18px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="config-container">
+    <div class="header"> v_jstools 基础功能配置</div>
+
+    <div class="config-item">
+      <div class="config-description">
+        <div class="config-title">启用基础的api挂钩功能</div>
+        <div class="config-detail">挂钩所有基础的浏览器 api，用于调试开发。</div>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="toggle-i">
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="config-item">
+      <div class="config-description">
+        <div class="config-title">启用代码注入功能</div>
+        <div class="config-detail">CDP协议实现的代码注入功能。</div>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="toggle-h">
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="config-item">
+      <div class="config-description">
+        <div class="config-title">启用生成环境代码功能</div>
+        <div class="config-detail">生成补环境代码。</div>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="toggle-f">
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="config-item">
+      <div class="config-description">
+        <div class="config-title">启用工具包功能</div>
+        <div class="config-detail">各类工具包页面，快速分析 js 代码。</div>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="toggle-e">
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="config-item">
+      <div class="config-description">
+        <div class="config-title">启用代理功能</div>
+        <div class="config-detail">该插件提供最基础的代理功能。</div>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="toggle-g">
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="config-item">
+      <div class="config-description">
+        <div class="config-title">启用页面拷贝功能</div>
+        <div class="config-detail">利用 CDP 协议钩住页面内容，将页面完全拷贝下来。</div>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="toggle-c">
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="config-item">
+      <div class="config-description">
+        <div class="config-title">启用事件监听功能</div>
+        <div class="config-detail">在页面注入监听事件，操作以后按 ESC 生成事件列表。</div>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="toggle-d">
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="config-item">
+      <div class="config-description">
+        <div class="config-title">启用资源拷贝功能</div>
+        <div class="config-detail">利用 CDP 协议钩住页面内容，将资源完全拷贝下来。</div>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="toggle-b">
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <!-- <div class="config-item">
+      <div class="config-description">
+        <div class="config-title">启用油猴功能</div>
+        <div class="config-detail">利用 vmp 绕过 CSP 限制注入全局。</div>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="toggle-a">
+        <span class="slider"></span>
+      </label>
+    </div> -->
+
+    <div class="config-item">
+      <div class="config-description">
+        <div class="config-title">启用 alpha 测试功能</div>
+        <div class="config-detail">这里是所有尚未编写完成的功能，仅供开发者使用，当某些功能开发完成时会移出此处，变成正常可选配置功能。</div>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="toggle-x">
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="config-item">
+      <div class="config-description">
+        <div class="config-title">github: https://github.com/cilame/v_jstools</div>
+        <div class="config-title">author: vvv</div>
+      </div>
+    </div>
+    <div class="config-item">
+      <div class="config-description">
+        <div class="config-title">想要对工具提供意见或建议：</div>
+        <div class="config-detail">为方便广大开发者更好地了解和使用 v_jstools，我与猿人学平哥合作，我们共同建立了一个微信交流群，扫码并备注 “jstools” 即可申请加入。 </div>
+        <img src="../common/a.png" style="width: 150px; height: 150px">
+      </div>
+    </div>
+
+  </div>
+
+  <script src="base_config.js"></script>
+</body>
+</html>
